@@ -32,8 +32,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.gerenciamentodejogos.data.database.JogoRepository
 import com.example.gerenciamentodejogos.data.models.Jogo
+import com.example.gerenciamentodejogos.viewmodel.CadastroViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -42,12 +44,13 @@ import kotlinx.coroutines.withContext
 class CadastroActicity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
 
-
         setContent {
-            CadastroScreen()
+            val cadastroViewModel: CadastroViewModel = viewModel()
+
+            CadastroScreen(viewModel = cadastroViewModel)
+
             ListaJogosScreen()
         }
     }
@@ -55,46 +58,25 @@ class CadastroActicity : ComponentActivity() {
 
 @Preview(showBackground = true)
 @Composable
-fun CadastroScreen() {
+fun CadastroScreen(viewModel: CadastroViewModel = viewModel()) {
 
     val context = LocalContext.current
-
-    var jogoRepository = JogoRepository(context);
-
-
-    var titulo by remember { mutableStateOf("") }
-    var categoria by remember { mutableStateOf("") }
-    var plataforma by remember { mutableStateOf("") }
-
 
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
         Text("Cadastro de Jogo", fontSize = 24.sp)
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        TextField(value = titulo, onValueChange = { titulo = it }, label = { Text("Título do Jogo") })
+        TextField(value = viewModel.titulo, onValueChange = { viewModel.titulo = it }, label = { Text("Título do Jogo") })
         Spacer(modifier = Modifier.height(8.dp))
-        TextField(value = categoria, onValueChange = { categoria = it }, label = { Text("Categoria") })
+        TextField(value = viewModel.categoria, onValueChange = { viewModel.categoria = it }, label = { Text("Categoria") })
         Spacer(modifier = Modifier.height(8.dp))
-        TextField(value = plataforma, onValueChange = { plataforma = it }, label = { Text("Plataforma") })
+        TextField(value = viewModel.plataforma, onValueChange = { viewModel.plataforma = it }, label = { Text("Plataforma") })
 
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = {
-            if (titulo.isNotBlank() && categoria.isNotBlank() && plataforma.isNotBlank()) {
-
-                CoroutineScope(Dispatchers.IO).launch {
-
-                    jogoRepository.salvarJogo(Jogo(0, titulo, categoria, plataforma))
-                }
-
-                Toast.makeText(context, "Jogo cadastrado com sucesso!", Toast.LENGTH_SHORT).show()
-                titulo = ""
-                categoria = ""
-                plataforma = ""
-            } else {
-                Toast.makeText(context, "Preencha todos os campos!", Toast.LENGTH_SHORT).show()
-            }
+            viewModel.salvarJogo(context)  // Chamando a função da ViewModel
         }) {
             Text("Salvar Jogo")
         }
