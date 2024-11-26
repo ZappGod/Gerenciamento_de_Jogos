@@ -1,4 +1,4 @@
-package com.example.gerenciamentodejogos.ui.theme
+package com.example.gerenciamentodejogos.view.ui.theme
 
 import android.app.Activity
 import android.os.Build

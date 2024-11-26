@@ -1,65 +1,124 @@
 package com.example.gerenciamentodejogos.view
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.gerenciamentodejogos.ui.theme.GerenciamentoDeJogosTheme
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.gerenciamentodejogos.view.ui.theme.GerenciamentoDeJogosTheme
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         enableEdgeToEdge()
         setContent {
             GerenciamentoDeJogosTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "KORNO KKKKKKKKKKKKKKKKKKKK",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                // Definindo o NavHost com navegação para cada tela
+                val navController = rememberNavController()
+
+                NavHost(navController = navController, startDestination = "main") {
+                    composable("main") {
+                        MainScreen(navController) // Tela principal
+                    }
+                    composable("jogoList") {
+                        JogoListScreen() // Tela de listagem de jogos
+                    }
+                    composable("cadastro") {
+                        CadastroScreen() // Tela de cadastro de jogos
+                    }
                 }
+            }
+            }
+        }
+    }
+
+@Composable
+fun MainScreen(navController: NavController) {
+    // Exemplo de conteúdo para a tela principal
+    BorderedBox() {
+        CenteredColumn() {
+            Text("Bem-vindo ao Gerenciamento de Jogos")
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Button(onClick = { navController.navigate("jogoList") }) {
+                Text("Ir para Lista de Jogos")
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Button(onClick = { navController.navigate("cadastro") }) {
+                Text("Ir para Cadastro de Jogo")
             }
         }
     }
 }
 
+
+
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
-    val context = LocalContext.current
-
-
-    Column {
-        Text(
-            text = "Hello $name!",
-            modifier = modifier
-        )
-
-        Button(onClick = {
-            val intent = Intent(context, DetailsActivity::class.java)
-            context.startActivity(intent)
-        }) {
-            Text("Ir para detalhe do sexo do zap")
-        }
-    }
-
-
+    Text(
+        text = "Hello $name!",
+        modifier = modifier
+    )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     GerenciamentoDeJogosTheme {
-        Greeting("KORNO k³")
+        Greeting("Android")
+    }
+}
+
+@Composable
+fun CenteredColumn(
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit
+) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .then(modifier), // Permite adicionar modificadores adicionais
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        content()
+    }
+}
+
+@Composable
+fun BorderedBox(
+    modifier: Modifier = Modifier,
+    padding: Dp = 16.dp, // Definindo um espaçamento padrão para as bordas
+    content: @Composable () -> Unit
+) {
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(padding) // Aplica o espaçamento em torno da Box
+    ) {
+        content()
     }
 }

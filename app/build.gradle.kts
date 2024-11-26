@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-kapt") // Adicionando o plugin kapt
 }
 
 android {
@@ -49,6 +50,7 @@ android {
     }
 }
 
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -61,6 +63,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.room.common)
     implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.navigation.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -68,4 +71,21 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // ViewModel and LiveData
+    implementation(libs.androidx.room.common)
+    implementation(libs.androidx.room.ktx)
+    kapt(libs.androidx.room.compiler) // KAPT necessário para processar o Room e gerar o código de implementação
+
+    // ViewModel para gerenciamento de estado
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
+
+    // Para integração com o ciclo de vida da Activity/Fragment
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
+
+    // Caso esteja usando Jetpack Compose
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
+
+    // LiveData (caso precise observar dados)
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.8.7")
 }
