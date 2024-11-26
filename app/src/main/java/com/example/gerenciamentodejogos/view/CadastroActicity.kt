@@ -47,11 +47,7 @@ class CadastroActicity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            val cadastroViewModel: CadastroViewModel = viewModel()
-
-            CadastroScreen(viewModel = cadastroViewModel)
-
-            ListaJogosScreen()
+            CadastroScreen()
         }
     }
 }
@@ -83,59 +79,3 @@ fun CadastroScreen(viewModel: CadastroViewModel = viewModel()) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun ListaJogosScreen() {
-
-    val context = LocalContext.current
-
-    var jogoRepository = JogoRepository(context);
-
-    // Lista de jogos
-    val jogos = remember { mutableStateOf(listOf<Jogo>()) }
-
-    // Carregar os jogos ao compor a tela
-    LaunchedEffect(true) {
-        jogos.value = jogoRepository.buscarTodos()
-    }
-
-    Column(modifier = Modifier.padding(16.dp)) {
-        Text(
-            text = "Lista de Jogos",
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
-
-        LazyColumn(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            items(jogos.value) { jogo ->
-                JogoItem(jogo = jogo)
-            }
-        }
-    }
-}
-
-@Composable
-fun JogoItem(jogo: Jogo) {
-    // Componente para exibir cada item da lista
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp)
-    ) {
-        Column(
-            modifier = Modifier.padding(16.dp)
-        ) {
-            Text(
-                text = jogo.titulo,
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = "Categoria: ${jogo.categoria}",
-            )
-            Text(
-                text = "Plataforma: ${jogo.plataforma}",
-            )
-        }
-    }
-}
