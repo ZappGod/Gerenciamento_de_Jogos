@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.gerenciamentodejogos.data.models.Jogo
+import com.example.gerenciamentodejogos.model.entity.Jogo
 import com.example.gerenciamentodejogos.ui.theme.GerenciamentoDeJogosTheme
 import com.example.gerenciamentodejogos.viewmodel.JogoListViewModel
 
