@@ -30,4 +30,24 @@ class JogoListViewModel(application: Application) : AndroidViewModel(application
             }
         }
     }
+
+    // Função de busca por título
+    fun buscarJogosPorTitulo(titulo: String) {
+        if (titulo.isBlank()) {
+            viewModelScope.launch(Dispatchers.IO) {
+                val listaJogos = jogoRepository.buscarTodos()  // Chama o método do repositório
+                // Atualiza a lista de jogos na UI (comunicando com a thread principal)
+                withContext(Dispatchers.Main) {
+                    jogos = listaJogos
+                }
+            }
+        } else {
+            viewModelScope.launch(Dispatchers.IO) {
+                val jogosFiltradosList = jogoRepository.buscarPorTitulo(titulo)
+                withContext(Dispatchers.Main) {
+                    jogos = jogosFiltradosList
+                }
+            }
+        }
+    }
 }
