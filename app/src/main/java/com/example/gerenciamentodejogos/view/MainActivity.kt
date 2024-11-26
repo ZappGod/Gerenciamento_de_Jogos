@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -41,10 +42,18 @@ class MainActivity : ComponentActivity() {
                         MainScreen(navController) // Tela principal
                     }
                     composable("jogoList") {
-                        JogoListScreen() // Tela de listagem de jogos
+                        JogoListScreen(viewModel = viewModel(), navController) // Tela de listagem de jogos
                     }
                     composable("cadastro") {
                         CadastroScreen() // Tela de cadastro de jogos
+                    }
+                    composable("details/{uid}") { navBackStackEntry ->
+                        val uid = navBackStackEntry.arguments?.getString("uid")
+
+                        uid?.let { id ->
+                            print("id: $id")
+                            DetailsLayout(viewModel = viewModel(), uid = id.toInt())
+                        }
                     }
                 }
             }
@@ -69,6 +78,12 @@ fun MainScreen(navController: NavController) {
 
             Button(onClick = { navController.navigate("cadastro") }) {
                 Text("Ir para Cadastro de Jogo")
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Button(onClick = { navController.navigate("details/2") }) {
+                Text("Ir para Detalhe de Jogo")
             }
         }
     }

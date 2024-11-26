@@ -37,4 +37,8 @@ class JogoRepository(context: Context) {
     suspend fun buscarPorTitulo(titulo: String): List<Jogo> = withContext(Dispatchers.IO) {
         jogoDao.buscarPorTitulo(titulo)
     }
+
+    suspend fun getById(id: Int): Jogo = withContext(Dispatchers.IO) {
+        jogoDao.getById(id)
+    }
 }

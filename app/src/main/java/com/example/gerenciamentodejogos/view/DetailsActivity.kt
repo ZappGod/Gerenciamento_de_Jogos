@@ -29,40 +29,28 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.gerenciamentodejogos.model.Jogo
-import com.example.gerenciamentodejogos.viewmodel.AppDataBase
-
-class DetailsActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            DetailsLayout()
-        }
-    }
-}
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.gerenciamentodejogos.model.database.AppDataBase
+import com.example.gerenciamentodejogos.model.entity.Jogo
+import com.example.gerenciamentodejogos.viewmodel.DetailsViewModel
+import com.example.gerenciamentodejogos.viewmodel.JogoListViewModel
 
 @Composable
-fun DetailsLayout(){
-
-    //Variaveis para o DataBase
-    var detalheJogo by remember { mutableStateOf<Jogo?>(null) }
+fun DetailsLayout(viewModel: DetailsViewModel = viewModel(), uid:Int){
     val context = LocalContext.current
-    val db = AppDataBase.getDatabase(context)
-    val jogoDao = db.jogoDao()
 
-    LaunchedEffect(Unit) {
-        try {
-            detalheJogo = jogoDao.getById(69)
-        } catch (e : Exception) {
-            Log.e("ERRO DB", "Erro ao acessar o db: ${e.message}")
-        }
+    LaunchedEffect(uid) {
+        viewModel.loadDetails(uid)
     }
+
+    // Observa a lista de jogos da ViewModel
+    val detalheJogo = viewModel.details
 
     Column (
         Modifier
             .fillMaxSize()
             .padding(20.dp)){
-        Text("Detalhe do Jogo", fontSize = 25.sp)
+        Text("Detalhe do Jogo: $uid", fontSize = 25.sp)
         Spacer(modifier = Modifier.height(15.dp))
 
         Text("Nome: ${detalheJogo?.titulo}")
@@ -74,7 +62,7 @@ fun DetailsLayout(){
         Text("Plataforma: ${detalheJogo?.plataforma}")
         Spacer(modifier = Modifier.height(15.dp))
 
-        OutlinedIconButton(shape = CircleShape, border = BorderStroke(5.dp, Color.Cyan), onClick = {
+        OutlinedIconButton(shape = CircleShape, border = BorderStroke(1.dp, Color.Cyan), onClick = {
             Toast.makeText(
                 context,
                 "SEXO GARAI KKKKKKKKKKKKK",

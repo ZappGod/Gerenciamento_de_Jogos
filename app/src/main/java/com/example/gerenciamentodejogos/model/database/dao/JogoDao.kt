@@ -20,4 +20,7 @@ interface JogoDao {
 
     @Query("SELECT * FROM jogos WHERE titulo LIKE :titulo")
     suspend fun buscarPorTitulo(titulo: String): List<Jogo>
+
+    @Query("SELECT * FROM jogos WHERE id = :id")
+    suspend fun getById(id: Int): Jogo
 }
