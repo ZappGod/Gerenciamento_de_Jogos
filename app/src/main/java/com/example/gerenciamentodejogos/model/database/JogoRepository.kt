@@ -1,13 +1,10 @@
-package com.example.gerenciamentodejogos.data.database
+package com.example.gerenciamentodejogos.model.database
 
-import android.app.Application
 import android.content.Context
 import android.util.Log
-import androidx.lifecycle.LiveData
-import com.example.gerenciamentodejogos.data.models.Jogo
-import kotlinx.coroutines.CoroutineScope
+import com.example.gerenciamentodejogos.model.database.dao.JogoDao
+import com.example.gerenciamentodejogos.model.entity.Jogo
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class JogoRepository(context: Context) {

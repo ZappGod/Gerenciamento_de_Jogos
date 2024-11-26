@@ -1,10 +1,10 @@
-package com.example.gerenciamentodejogos.data.database
+package com.example.gerenciamentodejogos.model.database.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.example.gerenciamentodejogos.data.models.Jogo
+import com.example.gerenciamentodejogos.model.entity.Jogo
 
 @Dao
 interface JogoDao {

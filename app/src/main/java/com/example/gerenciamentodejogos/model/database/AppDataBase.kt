@@ -1,11 +1,12 @@
-package com.example.gerenciamentodejogos.data.database
+package com.example.gerenciamentodejogos.model.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.example.gerenciamentodejogos.data.models.Jogo
+import com.example.gerenciamentodejogos.model.database.dao.JogoDao
+import com.example.gerenciamentodejogos.model.entity.Jogo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

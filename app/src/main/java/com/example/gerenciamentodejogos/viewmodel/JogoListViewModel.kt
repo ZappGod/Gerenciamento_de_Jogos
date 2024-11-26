@@ -5,10 +5,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.gerenciamentodejogos.data.database.JogoRepository
-import com.example.gerenciamentodejogos.data.models.Jogo
+import com.example.gerenciamentodejogos.model.database.JogoRepository
+import com.example.gerenciamentodejogos.model.entity.Jogo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

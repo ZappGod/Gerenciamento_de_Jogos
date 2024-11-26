@@ -1,4 +1,4 @@
-package com.example.gerenciamentodejogos.data.models
+package com.example.gerenciamentodejogos.model.entity
 
 import androidx.room.PrimaryKey
 import androidx.room.Entity
