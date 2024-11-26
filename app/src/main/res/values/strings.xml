@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Gerenciamento de Jogos</string>
     <string name="title_activity_cadastro_acticity">CadastroActicity</string>
+    <string name="title_activity_details_activity">DetailsActivity</string>
 </resources>

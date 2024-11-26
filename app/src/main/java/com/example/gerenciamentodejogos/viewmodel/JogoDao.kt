@@ -13,5 +13,8 @@ interface JogoDao {
 
     @Query("SELECT * FROM jogos")
     suspend fun buscarTodos() : List<Jogo>
+
+    @Query("SELECT * FROM jogos WHERE jogos.id = :id")
+    suspend fun getById(id: Int): Jogo
     
 }
