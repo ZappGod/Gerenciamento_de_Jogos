@@ -58,23 +58,36 @@ fun CadastroScreen(viewModel: CadastroViewModel = viewModel()) {
 
     val context = LocalContext.current
 
-    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        Text("Cadastro de Jogo", fontSize = 24.sp)
+    BorderedBox() {
+        CenteredColumn() {
 
-        Spacer(modifier = Modifier.height(16.dp))
+                Text("Cadastro de Jogo", fontSize = 24.sp)
+                Spacer(modifier = Modifier.height(16.dp))
 
-        TextField(value = viewModel.titulo, onValueChange = { viewModel.titulo = it }, label = { Text("Título do Jogo") })
-        Spacer(modifier = Modifier.height(8.dp))
-        TextField(value = viewModel.categoria, onValueChange = { viewModel.categoria = it }, label = { Text("Categoria") })
-        Spacer(modifier = Modifier.height(8.dp))
-        TextField(value = viewModel.plataforma, onValueChange = { viewModel.plataforma = it }, label = { Text("Plataforma") })
+                TextField(
+                    value = viewModel.titulo,
+                    onValueChange = { viewModel.titulo = it },
+                    label = { Text("Título do Jogo") })
+                Spacer(modifier = Modifier.height(8.dp))
 
-        Spacer(modifier = Modifier.height(16.dp))
+                TextField(
+                    value = viewModel.categoria,
+                    onValueChange = { viewModel.categoria = it },
+                    label = { Text("Categoria") })
+                Spacer(modifier = Modifier.height(8.dp))
 
-        Button(onClick = {
-            viewModel.salvarJogo(context)  // Chamando a função da ViewModel
-        }) {
-            Text("Salvar Jogo")
+                TextField(
+                    value = viewModel.plataforma,
+                    onValueChange = { viewModel.plataforma = it },
+                    label = { Text("Plataforma") })
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Button(onClick = {
+                    viewModel.salvarJogo(context)  // Chamando a função da ViewModel
+                }) {
+                    Text("Salvar Jogo")
+                }
+
         }
     }
 }

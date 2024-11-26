@@ -49,15 +49,19 @@ fun JogoListScreen(viewModel: JogoListViewModel = viewModel()) {
     // Observa a lista de jogos da ViewModel
     val jogos = viewModel.jogos
 
-    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        Text("Lista de Jogos", fontSize = 24.sp)
+    BorderedBox() {
+        CenteredColumn() {
+            Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+                Text("Lista de Jogos", fontSize = 24.sp)
 
-        Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
-        // Exibe a lista de jogos
-        LazyColumn {
-            items(jogos) { jogo ->
-                JogoItem(jogo = jogo)
+                // Exibe a lista de jogos
+                LazyColumn {
+                    items(jogos) { jogo ->
+                        JogoItem(jogo = jogo)
+                    }
+                }
             }
         }
     }
