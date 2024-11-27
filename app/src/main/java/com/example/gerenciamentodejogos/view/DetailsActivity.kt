@@ -74,7 +74,7 @@ fun DetailsLayout(viewModel: DetailsViewModel = viewModel(), uid:Int){
             )
         }
 
-        OutlinedIconButton(shape = CircleShape, border = BorderStroke(5.dp, Color.Cyan), onClick = {
+        OutlinedIconButton(shape = CircleShape, border = BorderStroke(1.dp, Color.Cyan), onClick = {
             Toast.makeText(
                 context,
                 "FORNICAÇÃO HOMOAFETIVA KaKaKaKaKaKaKa",

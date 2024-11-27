@@ -30,6 +30,12 @@ class JogoRepository(context: Context) {
         }
     }
 
+    suspend fun updateGame(jogo:Jogo) = withContext(Dispatchers.IO) {
+        val (id, titulo, categoria, plataforma) = jogo
+
+        jogoDao.updateGame(id, titulo, categoria, plataforma)
+    }
+
     suspend fun excluirJogo(jogo: Jogo) = withContext(Dispatchers.IO) {
         jogoDao.excluirJogo(jogo)
     }
