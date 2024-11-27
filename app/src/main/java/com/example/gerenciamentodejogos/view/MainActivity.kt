@@ -52,7 +52,7 @@ class MainActivity : ComponentActivity() {
 
                         uid?.let { id ->
                             print("id: $id")
-                            DetailsLayout(viewModel = viewModel(), uid = id.toInt())
+                            DetailsLayout(viewModel = viewModel(),navController, uid = id.toInt())
                         }
                     }
                 }
@@ -80,11 +80,6 @@ fun MainScreen(navController: NavController) {
                 Text("Ir para Cadastro de Jogo")
             }
 
-            Spacer(modifier = Modifier.height(20.dp))
-
-            Button(onClick = { navController.navigate("details/2") }) {
-                Text("Ir para Detalhe de Jogo")
-            }
         }
     }
 }

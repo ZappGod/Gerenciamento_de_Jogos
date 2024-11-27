@@ -73,7 +73,6 @@ fun JogoItem(jogo: Jogo, navController: NavController) {
         navController.navigate("details/$uid")
     }) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = "ID: ${jogo.id}", fontSize = 18.sp)
             Text(text = "Título: ${jogo.titulo}", fontSize = 18.sp)
             Text(text = "Categoria: ${jogo.categoria}", fontSize = 16.sp)
             Text(text = "Plataforma: ${jogo.plataforma}", fontSize = 14.sp)

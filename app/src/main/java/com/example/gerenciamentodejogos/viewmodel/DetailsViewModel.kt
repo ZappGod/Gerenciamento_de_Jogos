@@ -29,5 +29,25 @@ class DetailsViewModel(application: Application): AndroidViewModel(application) 
         }
     }
 
+    fun updateGame(jogo: Jogo){
+        viewModelScope.launch(Dispatchers.IO) {
+            jogoRepository.updateGame(jogo)
+            val newDetails = jogoRepository.getById(jogo.id)
+
+            withContext(Dispatchers.Main) {
+                details = newDetails
+            }
+        }
+    }
+
+    fun deleteGame(jogo: Jogo){
+        viewModelScope.launch(Dispatchers.IO) {
+            jogoRepository.excluirJogo(jogo)
+
+            withContext(Dispatchers.Main) {
+
+            }
+        }
+    }
 
 }
