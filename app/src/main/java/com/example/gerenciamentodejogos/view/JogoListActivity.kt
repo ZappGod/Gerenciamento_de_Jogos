@@ -1,8 +1,5 @@
 package com.example.gerenciamentodejogos.view
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,28 +13,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.example.gerenciamentodejogos.model.entity.Jogo
-import com.example.gerenciamentodejogos.view.ui.theme.GerenciamentoDeJogosTheme
 import com.example.gerenciamentodejogos.viewmodel.JogoListViewModel
 
-class JogoListActivity  : ComponentActivity() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setContent {
-            JogoListScreen()
-        }
-    }
-}
-
-@Preview(showBackground = true)
 @Composable
-fun JogoListScreen(viewModel: JogoListViewModel = viewModel()) {
+fun JogoListScreen(viewModel: JogoListViewModel = viewModel(), navController: NavController) {
+
     // Carregar os jogos quando a tela for criada
     LaunchedEffect(true) {
         viewModel.carregarJogos()
@@ -56,7 +41,7 @@ fun JogoListScreen(viewModel: JogoListViewModel = viewModel()) {
                 // Exibe a lista de jogos
                 LazyColumn {
                     items(jogos) { jogo ->
-                        JogoItem(jogo = jogo)
+                        JogoItem(jogo = jogo, navController)
                     }
                 }
             }
@@ -65,8 +50,11 @@ fun JogoListScreen(viewModel: JogoListViewModel = viewModel()) {
 }
 
 @Composable
-fun JogoItem(jogo: Jogo) {
-    Card(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
+fun JogoItem(jogo: Jogo, navController: NavController) {
+    Card(modifier = Modifier.fillMaxWidth().padding(8.dp), onClick = {
+        val uid = jogo.id
+        navController.navigate("details/$uid")
+    }) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = "Título: ${jogo.titulo}", fontSize = 18.sp)
             Text(text = "Categoria: ${jogo.categoria}", fontSize = 16.sp)

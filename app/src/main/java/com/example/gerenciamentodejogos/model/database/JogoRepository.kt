@@ -30,11 +30,21 @@ class JogoRepository(context: Context) {
         }
     }
 
+    suspend fun updateGame(jogo:Jogo) = withContext(Dispatchers.IO) {
+        val (id, titulo, categoria, plataforma) = jogo
+
+        jogoDao.updateGame(id, titulo, categoria, plataforma)
+    }
+
     suspend fun excluirJogo(jogo: Jogo) = withContext(Dispatchers.IO) {
         jogoDao.excluirJogo(jogo)
     }
 
     suspend fun buscarPorTitulo(titulo: String): List<Jogo> = withContext(Dispatchers.IO) {
         jogoDao.buscarPorTitulo(titulo)
+    }
+
+    suspend fun getById(id: Int): Jogo = withContext(Dispatchers.IO) {
+        jogoDao.getById(id)
     }
 }
